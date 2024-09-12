@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Omni-MATH</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="icon" sizes="32x32" href="FullLogo_Transparent.png" />
+
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      table {
+        width: 70%;
+        border-collapse: collapse;
+        margin: 0 auto;
+        }
+
+      .header,
+      .buttons,
+      .footer,
+      .key {
+        flex-shrink: 0;
+      }
+
+      .header {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      .footer {
+        padding: 10px;
+        font-size: 12px;
+      }
+
+      .scrollable-div {
+        /* flex-grow: 1; */
+        height: calc(100vh - 460px);
+        overflow-y: auto;
+        background-color: #f5f5f5;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid black;
+      }
+
+      .buttons {
+        margin-top: 10px;
+      }
+
+      .btn {
+        font-family: kefa;
+        margin-bottom: 7px;
+      }
+
+      .left-col {
+        width: 200px; /* Adjust this value as per your requirement */
+      }
+
+      table tr,
+      table td {
+        border: none !important;
+      }
+      .bottom-border {
+        border-bottom: 1px solid gray !important;
+      }
+
+      .key-item {
+        margin-left: 2px;
+        margin-right: 2px;
+      }
+
+      .key-item::before {
+        content: ""; /* This is necessary for the pseudo-element to work */
+        display: inline-block;
+        width: 19px; /* Width of the square */
+        height: 19px; /* Height of the square */
+        margin-right: 5px; /* Space between the square and the text */
+        vertical-align: middle; /* Aligns the square with the text */
+        border: 1px solid black; /* Border around the square */
+        border-radius: 2px; /* Rounded corners */
+      }
+
+      .key-item.correct::before {
+        background-color: #3ebd66; /* Color for "Correct" */
+      }
+
+      .key-item.incorrect::before {
+        background-color: rgb(255 187 187); /* Color for "Incorrect" */
+      }
+      .drop{
+        display: flex;
+      }
+      .typing-cursor {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background-color: black;
+        border-radius: 50%; /* Make it round */
+        animation: pulse 1s infinite;
+      }
+      .bigtitle{
+        height: 200px;
+      }
+      .fade-in {
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out; /* 1 second fade time */
+        visibility: hidden;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.5);
+        }
+      }
+      #competitionButtons, #difficultyButtons, #domainButtons {
+      display: none;
+    }
+
+    /* 默认显示Competition按钮组 */
+    #competitionButtons {
+      display: block;
+    }
+      #modelAnswer {
+        /* border: 1px solid black !important; */
+        background-color: white;
+        border-radius: 10px;
+      }
+
+      #footer-logo {
+        position: fixed; /* Fixed position - stays in the same place even if you scroll */
+        bottom: 10px; /* 10px from the bottom */
+        left: 10px; /* 10px from the left */
+        z-index: 1000; /* Ensure it appears on top of other elements */
+      }
+      #footer-logo img {
+        width: 50px; /* Adjust the width as necessary */
+        height: auto; /* Keep the logo aspect ratio */
+      }
+      
+     
+        th, td {
+          font-family: calibri;
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        th, td {
+            text-align: left;
+        }
+        .fixed-width {
+          width: 80%;
+        }
+        th {
+            background-color: #953b3f;
+            color: white;
+        }
+        hr {
+            width: 100%;
+            border: 1px solid #ddd;
+            margin: 20px 0;
+        }
+        .custom-title {
+        font-family: calibri; /* 更改字体类型 */
+        color: #000000; /* 更改字体颜色 */
+        font-size: 32px; /* 更改字体大小 */
+        text-align: center; /* 文本居中对齐 */
+        margin-top: 20px; /* 增加顶部边距 */
+      }
+      p{
+        text-indent: 2em;
+      }
+      .custom-paragraph {
+        font-family: calibri; /* 更改字体类型 */
+        color: #000000; /* 更改字体颜色 */
+        font-size: 18px; /* 更改字体大小 */
+        line-height: 1.6; /* 行高 */
+        margin-bottom: 20px; /* 增加底部边距 */
+      }
+
+      b {
+        font-weight: bold; /* 加粗 */
+        color: #0066cc; /* 强调颜色 */
+      }
+      .logo {
+      height: 300px; /* 或者使用宽度width */
+      margin-right: 1%; /* 与标题文本的间距 */
+    }
+    .logotitle{
+      display: flex;
+    }
+    .org {
+      display: flex;          /* 使用Flexbox布局 */
+      align-items: center;    /* 垂直居中 */
+      justify-content: center;/* 水平居中 */
+      width: 100%;           /* 容器宽度设为100% */
+    }
+
+    .organization {
+      width: 20%;             /* 图片宽度设为容器宽度的一半 */
+      height: auto;   
+      margin: 0 80px;        /* 高度自动调整以保持图片比例 */
+      object-fit: contain;    /* 如果图片比例不同，保持图片在容器内完整显示 */
+    }
+    /* .peking{
+      height: 105;
+    } */
+    .org-name{
+      font-size: 2rem;
+      font-family: calibri;
+    }
+    .data-explorer{
+      display: flex;
+      align-items: center; /* 垂直居中 */
+      justify-content: space-between; /* 在元素之间保持空间 */
+    }
+    .newtable{
+      align-items: center;
+      margin: auto;
+      max-width: 1100px; /* 固定宽度为1100px */
+      overflow-x: auto; /* 允许水平滚动 */
+    }
+    </style>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          tags: 'ams'
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+    ></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      gtag('js', new Date());
+
+      gtag('config', 'G-PYVRSFMDRL');
+    </script>
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+    rel="stylesheet">
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+    <!-- <link rel="icon" href="./static/images/icon.png"> -->
+    <script type="text/javascript" src="static/js/sort-table.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="static/js/fontawesome.all.min.js"></script>
+    <script src="static/js/bulma-carousel.min.js"></script>
+    <script src="static/js/bulma-slider.min.js"></script>
+    <script src="static/js/index.js"></script>
+  </head>
+  <body>
+    <section>
+  <div class="bigtitle">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <!-- <div class="logotitle"> -->
+          <img src="FullLogo_Transparent.png" alt="Logo" class="logo">
+          <h1 class="title is-1 publication-title">Omni-MATH: A Universal Olympiad Level Mathematic Benchmark for Large Language Models</h1>
+          <!-- </div> -->
+          <div class="org">
+            <img src="Peking_University_logo.svg" alt="Logo" class="organization">
+            <img src="Alibaba-Logo.png" alt="Logo" class="organization" style="margin-right: 0rpx;">
+          </div>
+          <!-- <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="http://huangzhen02.github.io">Zhen Huang</a><sup>3</sup>,</span>
+            <span class="author-block"><a href="https://tinyurl.com/zengzhi-homepage">Zengzhi Wang</a><sup>1, 3</sup>,</span>
+            <span class="author-block"><a href="https://shijie-xia.github.io/">Shijie Xia</a><sup>1, 3</sup>,</span>
+            <span class="author-block"><a href="https://github.com/hongtangshui">Xuefeng Li</a><sup>1, 3</sup>,</span>
+            <span class="author-block"><a href="https://github.com/haoy-zzz">Haoyang Zou</a><sup>3</sup>,</span>
+            <span class="author-block"><a href="https://github.com/VagueWine">Ruijie Xu</a><sup>1, 3</sup>,</span>
+            <span class="author-block"><a href="https://rzfan525.github.io/">Run-Ze Fan</a><sup>1, 3</sup>,</span>
+            <span class="author-block"><a href="https://greenyea-com.webflow.io/">Lyumanshan Ye</a><sup>1, 3</sup>,</span>
+            <span class="author-block"><a href="https://ethanc111.github.io/">Ethan Chern</a><sup>1, 3</sup>,</span>
+            <span class="author-block"><a href="https://github.com/BLeaves">Yixin Ye</a><sup>1, 3</sup>,</span>
+            <span class="author-block"><a href="http://arist12.github.io/ykzhang/">Yikai Zhang</a><sup>1, 3</sup>,</span>
+            <span class="author-block"><a href="https://ayyyq.github.io/">Yuqing Yang</a><sup>3</sup>,</span>
+            <span class="author-block"><a href="http://cuteythyme.github.io">Ting Wu</a><sup>3</sup>,</span>
+            <span class="author-block"><a href="https://www.linkedin.com/in/binjie-wang-91514b25a/">Binjie Wang</a><sup>3</sup>,</span>
+            <span class="author-block"><a href="https://shichaosun.github.io/">Shichao Sun</a><sup>3</sup>,</span>
+            <span class="author-block"><a href="https://xiaoyang66.github.io/">Yang Xiao</a><sup>3</sup>,</span>
+            <span class="author-block"><a href="https://nativeatom.github.io/">Yiyuan Li</a><sup>3</sup>,</span>
+            <span class="author-block"><a href="https://koalazf99.github.io/">Fan Zhou</a><sup>1, 3</sup>,</span>
+            <span class="author-block"><a href="https://steffichern.github.io/">Steffi Chern</a><sup>3</sup>,</span>
+            <span class="author-block"><a href="https://qinyiwei.github.io/">Yiwei Qin</a><sup>3</sup>,</span>
+            <span class="author-block"><a href="https://mantle2048.github.io/">Yan Ma</a><sup>3</sup>,</span>
+            <span class="author-block"><a href="https://github.com/JoyBoy-Su">Jiadi Su</a><sup>3</sup>,</span>
+            <span class="author-block"><a href="https://github.com/yxliu0903">Yixiu Liu</a><sup>1, 3</sup>,</span>
+            <span class="author-block"><a href="https://github.com/zeetc">Yuxiang Zheng</a><sup>1, 3</sup>,</span>
+            <span class="author-block"><a href="https://scholar.google.com/citations?user=oiBMWK4AAAAJ&hl=en">Shaoting Zhang</a><sup>2*</sup>,</span>
+            <span class="author-block"><a href="http://dahua.site/">Dahua Lin</a><sup>2*</sup>,</span>
+            <span class="author-block"><a href="http://mmlab.siat.ac.cn/yuqiao">Yu Qiao</a><sup>2*</sup>,</span>
+            <span class="author-block"><a href="http://pfliu.com/">Pengfei Liu</a><sup>1, 2, 3*</sup></span>
+        </div> -->
+        
+        <div class="is-size-5 publication-authors">
+            <!-- <span class="org-name" style="margin-right: 10rem;"><sup>1</sup>PekingUniversity,</span>
+            <span class="org-name"><sup>2</sup>Alibaba Group</span> -->
+            <!-- <span class="author-block"><sup>3</sup>Generative AI Research Lab (GAIR)</span> -->
+        </div>
+
+        <!-- <div class="is-size-5 publication-authors">
+          <span class="author-block"><sup>*</sup>Corresponding authors</span>
+        </div> -->
+        
+
+        <div class="column has-text-centered">
+          <div class="publication-links">
+            <!-- PDF Link. -->
+            <span class="link-block">
+              <a href="" target="_blank"
+                  class="external-link button is-normal is-rounded is-white">
+                <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                </span>
+                <span>Paper</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="" target="_blank"
+                  class="external-link button is-normal is-rounded is-white">
+                <span class="icon">
+                    <i class="fab fa-github"></i>
+                </span>
+                <span>Code</span>
+                </a>
+            </span>
+            <!-- Dataset Link. -->
+            <span class="link-block">
+              <a href="" target="_blank"
+                  class="external-link button is-normal is-rounded is-white">
+                <span class="icon">
+                  <p style="font-size:18px;margin-right: 2rem;">🤗</p>
+                </span>
+                <span>Datasets</span>
+              </a>
+            </span>
+            <!-- Leaderboard Link. -->
+            <!-- <span class="link-block">
+              <a href="" class="external-link button is-normal is-rounded is-white">
+                <span class="icon">
+                  <p style="font-size:18px;margin-right: 2rem;">📊</p>
+                </span>
+                <span>Leaderboard</span>
+              </a>
+            </span> -->
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <!-- <div class="container">
+      <div class="header row center-content">
+        <div class="col text-center">
+          <img src="MathOdyssey_logo.png" width="300px" />
+          <p style="margin-top: -0px">Leaderboard & DATA EXPLORER</p>
+          <a href="https://arxiv.org/abs/2406.18321">arXiv</a> |
+          <a href="https://www.agiodyssey.org/#/gaic">Competition</a> | 🤗 Try
+          <a href="https://github.com/protagolabs/odyssey-math">GitHub</a>
+        </div>
+      </div> -->
+      <img src="25541724923794_.pic.jpg" class="img-fluid" alt="描述性文字">
+      <h2 class="custom-title">Introduction of Omni-MATH</h2>
+      <p class="custom-paragraph">Recent advancements in AI, particularly in large language models (LLMs), have led to significant breakthroughs in mathematical reasoning capabilities. However, existing benchmarks ilke GSM8K or MATH are now being solved with high accuracy (e.g., 84.0% on MATH dataset), indicating their inadequacy for truly challenging these models.
+        To mitigate this limitation, we propose a comprehensive and challenging benchmark specifically designed to assess LLMs' mathematical reasoning at the Olympiad level. Unlike existing Olympiad-related benchmarks, our dataset focuses exclusively on mathematics and comprises a vast collection of 4480 competition-level problems. These problems are meticulously categorized into 33 (and potentially more) sub-domains and span across 10 distinct difficulty levels, enabling a nuanced analysis of model performance across various mathematical disciplines and levels of complexity.
+        <br><br><b>Difficulty</b>: We conducted an extensive survey of mathematics competitions worldwide, categorizing them into five tiers based on their prominence, scale, and problem difficulty: Introductory, Transitional, Intermediate, National/International Difficult, and Famous Worldwide. To ensure accurate difficulty assessment, we rigorously adhered to the AoPS website's difficulty levels for problems listed there. For problems not on their list, we employed GPT-4o and few-shot prompting to give the difficulty tag.
+        <br><br><b>Domain</b>: We referenced established mathematics competition resources to construct a hierarchical classification tree for mathematical domains. Each problem within our dataset is assigned a specific domain classification path, reflecting the specific area of mathematics it tests.
+        <br><br><b>Data Source</b>: We collected problem statements and solutions from various international competitions and converted them into LaTeX format. For competitions lacking readily available solutions, we carefully selected problems from the AoPS website with high community recognition and reliable answers. All problems in our dataset include not only the final answer but also a detailed solution.
+This newly proposed benchmark offers a valuable resource for researchers and developers to rigorously evaluate and further advance the mathematical reasoning abilities of LLMs.
+    </div>
+    <table class="newtable">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="fixed-width">Overall Acc</th>
+            <th class="fixed-width">Algebra</th>
+            <th class="fixed-width">Precalculus</th>
+            <th class="fixed-width">Calculus</th>
+            <th class="fixed-width">Geometry</th>
+            <th class="fixed-width">Discrete Mathematics</th>
+            <th class="fixed-width">Number Theory</th>
+            <th class="fixed-width">Applied Mathematics</th>
+            <th class="fixed-width">Other</th>
+            <th class="fixed-width">Difficulty: 1-3</th>
+            <th class="fixed-width">Difficulty: 3-5</th>
+            <th class="fixed-width">Difficulty: 5-7</th>
+            <th class="fixed-width">Difficulty: 7-10</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><small>Mathstral-7B-v0.1</small></td>
+            <!-- <td class="fixed-width"><a href="https://arxiv.org/abs/2403.05530">Gemini Math-Specialized 1.5 Pro</a><br><i>Gemini Team, Google</i></td>
+            <td class="fixed-width">-</td> -->
+            <td>28.45%</td>
+            <td>34.74% <br>(751/2162)</td>
+            <td>27.27% <br>(24/88)</td>
+            <td>21.88% <br>(28/128)</td>
+            <td>20.41% <br>(211/1034)</td>
+            <td>16.95% <br>(152/897)</td>
+            <td>23.47% <br>(219/933)</td>
+            <td>25.06% <br>(203/810)</td>
+            <td>33.33% <br>(1/3)</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+          <td><small>MetaLlama-3.1-70B-instruct</small></td>
+          <!-- <td class="fixed-width"><a href="https://arxiv.org/abs/2309.16609">Qwen2-72B-Instruct</a><br><i>Qwen Team, Alibaba Group</i></td>
+          <td class="fixed-width"> <a href="https://arxiv.org/abs/2406.18629">Step-DPO</a> </td> -->
+          <td>35.7%</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><small>InternLM2-math-plus-mixtral8*22B</small></td>
+          <!-- <td class="fixed-width"><a href="https://arxiv.org/abs/2309.16609">Qwen2-72B-Instruct</a><br><i>Qwen Team, Alibaba Group</i></td>
+          <td class="fixed-width"> <a href="https://arxiv.org/abs/2406.18629">Step-DPO</a> </td> -->
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          
+      </tr>
+      </tr>
+        <tr>
+          <td><small></small></td>
+          <!-- <td class="fixed-width"><a href="https://arxiv.org/abs/2309.16609">Qwen2-72B-Instruct</a><br><i>Qwen Team, Alibaba Group</i></td>
+          <td class="fixed-width"> <a href="https://arxiv.org/abs/2406.18629">Step-DPO</a> </td> -->
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          
+      </tr>
+      <tr>
+        <td><small>DeepSeekMATH-7b-RL</small></td>
+          <!-- <td class="fixed-width"><a href="https://arxiv.org/abs/2309.16609">Qwen2-72B-Instruct</a><br><i>Qwen Team, Alibaba Group</i></td>
+          <td class="fixed-width"> <a href="https://arxiv.org/abs/2406.18629">Step-DPO</a> </td> -->
+          <td>16.12%</td>
+          <td>21.28% <br>(460/2162)</td>
+          <td>20.45% <br>(18/88)</td>
+          <td>12.50% <br>(16/128)</td>
+          <td>9.87% <br>(102/1033)</td>
+          <td>7.71% <br>(69/895)</td>
+          <td>9.98% <br>(93/932)</td>
+          <td>13.58% <br>(110/810)</td>
+          <td>0.00% <br>(0/3)</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        
+      </tr>
+        <tr>
+          <td><small>DeepSeek-Coder-V2-Lite-Instruct</small></td>
+          <!-- <td class="fixed-width"><a href="https://arxiv.org/abs/2309.16609">Qwen2-72B-Instruct</a><br><i>Qwen Team, Alibaba Group</i></td>
+          <td class="fixed-width"> <a href="https://arxiv.org/abs/2406.18629">Step-DPO</a> </td> -->
+          <td>19.73%</td>
+          <td>24.55% <br>(531/2163)</td>
+          <td>23.86% <br>(21/88)</td>
+          <td>13.28% <br>(17/128)</td>
+          <td>13.06% <br>(135/1034)</td>
+          <td>8.92% <br>(80/897)</td>
+          <td>15.88% <br>(148/932)</td>
+          <td>16.81% <br>(136/809)</td>
+          <td>0.00% <br>(0/3)</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+            
+        </tr>
+        <tr>
+          <td><small>DeepSeek-V2-Chat</small></td>
+          <!-- <td class="fixed-width"><a href="https://arxiv.org/abs/2309.16609">Qwen2-72B-Instruct</a><br><i>Qwen Team, Alibaba Group</i></td>
+          <td class="fixed-width"> <a href="https://arxiv.org/abs/2406.18629">Step-DPO</a> </td> -->
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+            
+        </tr>
+        <tr>
+          <td><small></small></td>
+          <!-- <td class="fixed-width"><a href="https://arxiv.org/abs/2309.16609">Qwen2-72B-Instruct</a><br><i>Qwen Team, Alibaba Group</i></td>
+          <td class="fixed-width"> <a href="https://arxiv.org/abs/2406.18629">Step-DPO</a> </td> -->
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+            
+        </tr>
+        <tr>
+          <td><small>MATHQwen-7b-instruct</small></td>
+          <!-- <td class="fixed-width"><a href="https://arxiv.org/abs/2309.16609">Qwen2-72B-Instruct</a><br><i>Qwen Team, Alibaba Group</i></td>
+          <td class="fixed-width"> <a href="https://arxiv.org/abs/2406.18629">Step-DPO</a> </td> -->
+          <td>29.36%</td>
+          <td>36.08% <br>(780/2162)</td>
+          <td>35.23% <br>(31/88)</td>
+          <td>24.22% <br>(31/128)</td>
+          <td>18.68% <br>(193/1033)</td>
+          <td>14.41% <br>(129/895)</td>
+          <td>27.04% <br>(252/932)</td>
+          <td>25.93% <br>(210/810)</td>
+          <td>0.00% <br>(0/3)</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+            
+        </tr>
+        <tr>
+          <td><small>MATHQwen-72b-instruct</small></td>
+          <!-- <td class="fixed-width"><a href="https://arxiv.org/abs/2309.16609">Qwen2-72B-Instruct</a><br><i>Qwen Team, Alibaba Group</i></td>
+          <td class="fixed-width"> <a href="https://arxiv.org/abs/2406.18629">Step-DPO</a> </td> -->
+          <td>33.67%</td>
+          <td>40.27% <br>(871/2163)</td>
+          <td>37.50% <br>(33/88)</td>
+          <td>27.34% <br>(35/128)</td>
+          <td>22.53% <br>(233/1034)</td>
+          <td>17.50% <br>(157/897)</td>
+          <td>30.01% <br>(280/933)</td>
+          <td>32.96% <br>(267/810)</td>
+          <td>0.00% <br>(0/3)</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+            
+        </tr>
+        <tr>
+          <td><small></small></td>
+          <!-- <td class="fixed-width"><a href="https://arxiv.org/abs/2309.16609">Qwen2-72B-Instruct</a><br><i>Qwen Team, Alibaba Group</i></td>
+          <td class="fixed-width"> <a href="https://arxiv.org/abs/2406.18629">Step-DPO</a> </td> -->
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+            
+        </tr>
+        <tr>
+          <td><small>Gemini-1.5-Pro</small></td>
+          <!-- <td class="fixed-width"><a href="https://arxiv.org/abs/2309.16609">Qwen2-72B-Instruct</a><br><i>Qwen Team, Alibaba Group</i></td>
+          <td class="fixed-width"> <a href="https://arxiv.org/abs/2406.18629">Step-DPO</a> </td> -->
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+            
+        </tr>
+        <tr>
+          <td><small>Claude-3.5-SONNET</small></td>
+          <!-- <td class="fixed-width"><a href="https://arxiv.org/abs/2309.16609">Qwen2-72B-Instruct</a><br><i>Qwen Team, Alibaba Group</i></td>
+          <td class="fixed-width"> <a href="https://arxiv.org/abs/2406.18629">Step-DPO</a> </td> -->
+          <td>30.49%</td>
+          <td>36.12% <br>(781/2162) </td>
+          <td>39.77% <br>(35/88)</td>
+          <td>21.88% <br>(28/128)</td>
+          <td>21.57% <br>(223/1034)</td>
+          <td>15.74% <br>(141/896)</td>
+          <td>25.75% <br>(240/932)</td>
+          <td>29.38% <br>(238/810)</td>
+          <td>33.33% <br>(1/3) </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+            
+        </tr>
+        <tr>
+          <td><small>GPT-4o</small></td>
+          <!-- <td class="fixed-width"><a href="https://arxiv.org/abs/2309.16609">Qwen2-72B-Instruct</a><br><i>Qwen Team, Alibaba Group</i></td>
+          <td class="fixed-width"> <a href="https://arxiv.org/abs/2406.18629">Step-DPO</a> </td> -->
+          <td>26.23%</td>
+          <td>30.30% <br>(655/2162)</td>
+          <td>29.55% <br>(26/88)</td>
+          <td>19.53% <br>(25/128)</td>
+          <td>17.70% <br>(183/1034)</td>
+          <td>15.74% <br>(141/896)</td>
+          <td>19.51% <br>(182/933)</td>
+          <td>26.70% <br>(216/809)</td>
+          <td>33.33% <br>(1/3)</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+            
+        </tr>
+        
+        
+        
+    
+      </tbody>
+    </table>
+    <div class="container is-max-desktop">
+      <hr>
+      <!-- Buttons -->
+      <div class="data-explorer">
+      <h2>Data Explorer</h2>
+      <!-- <div class="radio-group text-center mb-3">
+        <input type="radio" name="contentGroup" id="competitionRadio" value="competition" checked>
+        <label for="competitionRadio">Competition</label>
+        <input type="radio" name="contentGroup" id="difficultyRadio" value="difficulty">
+        <label for="difficultyRadio">Difficulty</label>
+        <input type="radio" name="contentGroup" id="domainRadio" value="domain">
+        <label for="domainRadio">Domain</label>
+      </div> -->
+      <div class="dropdown">
+        <button class="btn btn-custom t0" type="button" id="mainkind" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Competition
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#" data-value="competition">Competition</a>
+          <a class="dropdown-item" href="#" data-value="difficulty">Difficulty</a>
+          <a class="dropdown-item" href="#" data-value="domain">Domain</a>
+        </div>
+      </div>
+      </div>
+      <div class="buttons text-center mb-3" id="competitionButtons">
+        <div class="btn-container">
+          <div class="btn-row">
+              <div class="row-title">T0: International Famous Olympiad Competitions</div>
+              <button type="button" class="btn btn-custom t4" data="source_imo">IMO</button>
+              <button type="button" class="btn btn-custom t4" data="source_putnam">Putnam</button>
+              <button type="button" class="btn btn-custom t4" data="source_imc">IMC</button>
+          </div>
+          <div class="btn-row">
+              <div class="row-title">T1: International/Nationally Recognized Difficult Olympiad Competitions</div>
+              <button type="button" class="btn btn-custom t3" data="source_usamo">USAMO</button>
+              <button type="button" class="btn btn-custom t3" data="source_china_national_olympiad">China National Olympiad</button>
+              <button type="button" class="btn btn-custom t3" data="source_team_selection_test">Team Selection Test</button>
+              <button type="button" class="btn btn-custom t3" data="source_izho">IZHO</button>
+          </div>
+          <div class="btn-row">
+              <div class="row-title">T2: International/Nationally Intermediate Olympiad Competitions</div>
+              <button type="button" class="btn btn-custom t2" data="source_apmo">APMO</button>
+              <button type="button" class="btn btn-custom t2" data="source_usajmo">USAJMO</button>
+              <button type="button" class="btn btn-custom t2" data="source_balkan_mo">Balkan MO</button>
+              <button type="button" class="btn btn-custom t2" data="source_jbmo">JBMO</button>
+              <button type="button" class="btn btn-custom t2" data="source_tot">Tournament of Town</button>
+              <button type="button" class="btn btn-custom t2" data="source_baltic_way">Baltic Way</button>
+          </div>
+          <div class="btn-row">
+              <div class="row-title">T3: Transitional Competitions</div>
+              <button type="button" class="btn btn-custom t1" data="source_hmmt_2">HMMT February</button>
+              <button type="button" class="btn btn-custom t1" data="source_hmmt_2">HMMT November</button>
+          </div>
+          <div class="btn-row">
+              <div class="row-title">T4: Introductory Competitions</div>
+              <button type="button" class="btn btn-custom t0" data="source_pascal">Pascal</button>
+              <button type="button" class="btn btn-custom t0" data="source_cayley">Cayley</button>
+              <button type="button" class="btn btn-custom t0" data="source_fermat">Fermat</button>
+          </div>
+        </div>
+        <!-- Add more buttons as needed -->
+      </div>
+      <div  class="buttons text-center mb-3" id="difficultyButtons">
+        <button type="button" class="btn btn-primary" data="difficulty_1_3"> difficulty: 1-3 </button>
+        <button type="button" class="btn btn-light" data="difficulty_3_5"> difficulty: 3-5 </button>
+        <button type="button" class="btn btn-light" data="difficulty_5_7"> difficulty: 5-7 </button>
+        <button type="button" class="btn btn-light" data="difficulty_7_10"> difficulty: 7-10 </button>
+      </div>
+      <div id="domainButtons" class="drop">
+      <div class="dropdown" style="width: 20%;">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Algebra
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#" data-value="Mathematics_Algebra">Algebra</a>
+          <a class="dropdown-item" href="#" data-value="Mathematics_Number Theory">Number Theory</a>
+          <a class="dropdown-item" href="#" data-value="Mathematics_Geometry">Geometry</a>
+          <a class="dropdown-item" href="#" data-value="Mathematics_Discrete Mathematics">Discrete Mathematics</a>
+          <a class="dropdown-item" href="#" data-value="Mathematics_Calculus">Calculus</a>
+          <a class="dropdown-item" href="#" data-value="Mathematics_Precalculus">Precalculus</a>
+          <a class="dropdown-item" href="#" data-value="Mathematics_Applied Mathematics">Applied Mathematics</a>
+          <a class="dropdown-item" href="#" data-value="Mathematics_Other">Other</a>
+        </div>
+      </div>
+      
+      <div class="dropdown">
+        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Other
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2" id="secondDropdown">
+            <!-- 子分类选项将根据第一个下拉框的选择动态更新 -->
+        </div>
+    </div>
+    </div>
+      <!-- Scrollable Content Area -->
+      <div class="scrollable-div">
+        <table class="table">
+          <tr>
+            <td class="left-col">
+              <b>PROBLEM SOURCE</b>
+            </td>
+            <td id="problemSource">MATH Algebra Level 1</td>
+          </tr>
+          <tr>
+            <td class="left-col"><b>QUESTION</b></td>
+            <td id="question">
+              If a drip of water is equivalent to $\frac{1}{4}$ of a milliliter,
+              how many drips are in a liter of water? Note: 1 liter = 1000
+              milliliters.
+            </td>
+          </tr>
+          <!--
+          <tr>
+            <td class="left-col">
+              <b
+                >LLEMMA 34B<br /><small
+                  >Answers sampled using
+                  <a href="https://arxiv.org/abs/2203.11171"
+                    >self-consistency</a
+                  >
+                  with $k=256$.</small
+                ></b
+              >
+            </td>
+            <td id="modelAnswer">
+              We know that 1 liter of water is equivalent to 1000 milliliters.
+              Since 1 milliliter is equivalent to 4 drips, we have that 1000
+              milliliters is equivalent to $4\cdot1000=4000$ drips. Therefore,
+              the answer is $\boxed{4000}$. Final Answer: The final answer is
+              $4000$.
+            </td>
+          </tr>
+          <tr class="fade-in">
+            <td class="left-col">
+              <b
+                >EVALUATION RESULT<br /><small
+                  >Automatic evaluation results are sometimes inaccurate.</small
+                ></b
+              >
+            </td>
+            <td id="result">Correct</td>
+          </tr>
+        -->
+          <tr>
+            <td class="left-col">
+              <b>REFERENCE ANSWER</b>
+            </td>
+            <td id="referenceAnswer">
+              If a drip of water is equivalent to $\frac{1}{4}$ of a milliliter,
+              then $4$ drips of water must be equivalent to $1$ milliliter of
+              water. Since there are $1000$ milliliters in a liter, it follows
+              that there are $4 \times 1000 = \boxed{4000}$ drips in a liter of
+              water.
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Key -->
+      <!-- <div class="key mt-3 text-center">
+        <span class="key-item correct">Correct</span>
+        <span class="key-item incorrect">Incorrect</span>
+      </div> -->
+
+      <div class="navigation-buttons text-center mt-3">
+        <button type="button" id="leftButton" class="btn btn-secondary">
+          &lt;&lt;
+        </button>
+        <button type="button" id="rightButton" class="btn btn-secondary">
+          &gt;&gt;
+        </button>
+        <div class="mt-2">
+          <span id="currentPage">1</span> / <span id="totalPages">4</span>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer text-center mt-3">
+      This site is heavily inspired by the
+        <a href="https://minerva-demo.github.io">Minerva sample explorer</a> and Llemma.
+      </div>
+
+    </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="samples_gen.js"></script>
+    <script src="source.js"></script>
+    <script src="difficulty.js"></script>
+    <script src="domain.js"></script>
+
+    <script>
+      const subcategories = {
+        "Mathematics_Algebra": [
+            {text: "Other", value: "_Other"},
+            {text: "Algebra", value: "_Algebra"},
+            {text: "Abstract Algebra", value: "_Abstract Algebra"},
+            {text: "Intermediate Algebra", value: "_Intermediate Algebra"},
+            {text: "Prealgebra", value: "_Prealgebra"},
+            {text: "Linear Algebra", value: "_Linear Algebra"},
+            {text: "Equations and Inequalities", value: "_Equations and Inequalities"},
+            {text: "Sequences and Series", value: "_Sequences and Series"},
+            {text: "Number Theory", value: "_Number Theory"},
+            {text: "Differential Equations", value: "_Differential Equations"},
+            {text: "Combinatorics", value: "_Combinatorics"},
+            {text: "Exponents and Powers", value: "_Exponents and Powers"},
+            {text: "Algebraic Expressions", value: "_Algebraic Expressions"},
+            {text: "Functions and Sequences", value: "_Functions and Sequences"},
+            {text: "Binary Fractions", value: "_Binary Fractions"},
+            {text: "Polynomial Operations", value: "_Polynomial Operations"},
+            {text: "Sequences", value: "_Sequences"},
+            {text: "Recurrence Relations", value: "_Recurrence Relations"},
+            {text: "Quadratic Functions", value: "_Quadratic Functions"},
+            {text: "Functional Equations", value: "_Functional Equations"},
+            {text: "Elementary Functions", value: "_Elementary Functions"},
+            {text: "Sequences and series", value: "_Sequences and series"},
+            {text: "Complex Numbers", value: "_Complex Numbers"},
+            {text: "Floor Function", value: "_Floor Function"},
+        ],
+        "Mathematics_Number Theory": [
+            {text: "Other", value: "_Other"},
+            {text: "Greatest Common Divisors (GCD)", value: "_Greatest Common Divisors (GCD)"},
+            {text: "Congruences", value: "_Congruences"},
+            {text: "Prime Numbers", value: "_Prime Numbers"},
+            {text: "Divisibility", value: "_Divisibility"},
+            {text: "Factorization", value: "_Factorization"},
+            {text: "Perfect Squares", value: "_Perfect Squares"},
+            {text: "Quadratic Fields", value: "_Quadratic Fields"},
+            {text: "Divisors", value: "_Divisors"},
+            {text: "Least Common Multiples (LCM)", value: "_Least Common Multiples (LCM)"},
+            {text: "Divisor Functions", value: "_Divisor Functions"},
+            {text: "Digit Sums", value: "_Digit Sums"},
+            {text: "Diophantine Equations", value: "_Diophantine Equations"},
+            {text: "Digits and Sums", value: "_Digits and Sums"},
+            {text: "Base Representations", value: "_Base Representations"},
+            {text: "Exponentiation", value: "_Exponentiation"},
+            {text: "Exponential Equations", value: "_Exponential Equations"},
+            {text: "Integer Solutions", value: "_Integer Solutions"},
+            {text: "Modular Arithmetic", value: "_Modular Arithmetic"},
+            {text: "Prime Numbers", value: "_Prime Numbers (due to considerations involving perfect squares and integer properties)"},
+            {text: "Sequences", value: "_Sequences"},
+            {text: "Rational Numbers", value: "_Rational Numbers"},
+            {text: "Rational Approximations", value: "_Rational Approximations"},
+            {text: "Integer Factorization", value: "_Integer Factorization"},
+            {text: "Perfect Numbers", value: "_Perfect Numbers"},
+            {text: "Binary Representation", value: "_Binary Representation"},
+
+        ],
+        "Mathematics_Geometry": [
+            {text: "Plane Geometry", value: "_Plane Geometry"},
+            {text: "Greatest Common Divisors (GCD)", value: "_Greatest Common Divisors (GCD)"},
+            {text: "Solid Geometry", value: "_Solid Geometry"},
+            {text: "Other", value: "_Other"},
+            {text: "Differential Geometry", value: "_Differential Geometry"},
+        ],
+        "Mathematics_Discrete Mathematics": [
+            {text: "Graph Theory", value: "_Graph Theory"},
+            {text: "Algorithms", value: "_Algorithms"},
+            {text: "Combinatorics", value: "_Combinatorics"},
+            {text: "Logic", value: "_Logic"},
+            {text: "Other", value: "_Other"},
+            {text: "Set Theory", value: "_Set Theory"},
+            {text: "Game Theory", value: "_Game Theory"}
+        ],
+        "Mathematics_Calculus":[
+            {text: "Differential Calculus", value: "_Differential Calculus"},
+            {text: "Integral Calculus", value: "_Integral Calculus"},
+            {text: "Techniques of Integration", value: "_Techniques of Integration"},
+            {text: "Applications of Derivatives (for optimization purposes)", value: "_Applications of Derivatives"},
+            {text: "Series", value: "_Series"},
+            {text: "Applications of Integrals", value: "_Applications of Integrals"},
+            {text: "Real Numbers", value: "_Real Numbers"},
+            {text: "Optimization", value: "_Optimization"},
+            {text: "Single-variable", value: "_Single-variable"},
+            {text: "Series and Sequences", value: "_Series and Sequences"},
+            {text: "Infinite Series", value: "_Infinite Series"},
+        ],
+        "Mathematics_Precalculus":[
+            {text: "Trigonometric Functions", value: "_Trigonometric Functions"},
+            {text: "Limits", value: "_Limits"},
+            {text: "Functions", value: "_Functions"},
+        ],
+        "Mathematics_Applied Mathematics":[
+            {text: "Statistics", value: "_Statistics"},
+            {text: "Probability", value: "_Probability"},
+            {text: "Word Problems", value: "_Word Problems"},
+            {text: "Math Word Problems", value: "_Math Word Problems"},
+            {text: "Other", value: "_Other"},
+        ],
+        "Mathematics_Other":[
+            {text: "Other", value: "_Other"},
+        ]
+    };
+      $(document).ready(function () {
+        var final_selest;
+        var first_select="Mathematics_Algebra";
+        $('#domainButtons').on('click', '.dropdown-item', function(event) {
+        event.preventDefault();
+        var $target = $(event.target);
+        var text = $target.text().trim(); // 获取选中的文本
+        var value = $target.data('value'); // 获取data-value属性
+        
+        // 检查点击的是哪个下拉框的选项
+        if ($target.closest('.dropdown-menu').attr('aria-labelledby') === 'dropdownMenuButton') {
+          const selectedCategory = $(this).data('value'); // 获取选中的分类值
+        const subcategoryMenu = $('#secondDropdown'); // 获取第二个下拉框的菜单容器
+
+        // 清空以前的子分类选项
+        subcategoryMenu.empty();
+
+        // 根据选中的分类动态添加子分类选项
+        if (subcategories[selectedCategory]) {
+            subcategories[selectedCategory].forEach(function(subcategory) {
+                subcategoryMenu.append(`<a class="dropdown-item" href="#" data-value="${subcategory.value}">${subcategory.text}</a>`);
+            });
+        } else {
+            subcategoryMenu.append('<a class="dropdown-item" href="#" data-value="none">无子分类</a>');
+        }
+            // 点击的是一级下拉框的选项
+            // 更新一级下拉框按钮的文本
+            $('#dropdownMenuButton').text(text);
+            final_selest = value;
+            // 隐藏所有二级下拉框
+            $('.dropdown-menu[id]').removeClass('show');
+            console.log("798123479123")
+            console.log(value)
+            // 显示对应的二级下拉框
+            $('#' + value).addClass('show');
+            first_select = value
+        } else {
+          const selectedSubcategoryText = $(this).text(); // 获取选中的子分类文本
+        const secondDropdownButton = $('#dropdownMenuButton2'); // 获取第二个下拉框的按钮
+        secondDropdownButton.text(selectedSubcategoryText);
+          console.log("hhhhhh")
+            // 点击的是二级下拉框的选项
+            // 找到点击的是哪个二级下拉框，并更新对应按钮的文本
+            var secondMenuId = $target.closest('.dropdown-menu').attr('id');
+            var buttonId = 'secondDropdownMenuButton'; // 假设所有二级下拉框按钮的ID是固定的
+            $('#' + buttonId).text(text);
+            $('.dropdown-menu[id]').removeClass('show');
+            // 这里可以添加其他需要的逻辑，例如处理选中的值
+            console.log('Selected value in ' + secondMenuId + ': ' + value);
+            final_selest = first_select+value;
+            console.log("这里是下拉框的选择")
+            console.log(final_selest)
+            final_selest = final_selest.replace(/Mathematics_Number_Theory/g, "Mathematics_Number Theory")
+    .replace(/Mathematics_Discrete_Mathematics/g, "Mathematics_Discrete Mathematics")
+    .replace(/Mathematics_Applied_Mathematics/g, "Mathematics_Applied Mathematics")
+            changeSubject(final_selest)
+        }
+    });
+      $('#mainkind').next('.dropdown-menu').find('.dropdown-item').click(function(e) {
+      e.preventDefault(); // 阻止链接的默认行为
+      
+      // 获取被点击的选项的数据值
+      var selectedValue = $(this).data('value');
+      $('#mainkind').text(selectedValue); 
+      $('#competitionButtons, #difficultyButtons, #domainButtons').hide(); // 首先隐藏所有按钮组
+      $('#' + selectedValue + 'Buttons').show(); // 然后显示选中的按钮组
+      console.log("当前选中的是："+selectedValue)
+      if(selectedValue=="competition"){
+        changeSubject("source_team_selection_test");
+      }
+      else if(selectedValue=="difficulty"){
+        changeSubject("difficulty_1_3");
+      }
+      else{
+        const selectedCategory = "Mathematics_Algebra"; // 获取选中的分类值
+        const subcategoryMenu = $('#secondDropdown'); // 获取第二个下拉框的菜单容器
+
+        // 清空以前的子分类选项
+        subcategoryMenu.empty();
+
+        // 根据选中的分类动态添加子分类选项
+        if (subcategories[selectedCategory]) {
+            subcategories[selectedCategory].forEach(function(subcategory) {
+                subcategoryMenu.append(`<a class="dropdown-item" href="#" data-value="${subcategory.value}">${subcategory.text}</a>`);
+            });
+        } else {
+            subcategoryMenu.append('<a class="dropdown-item" href="#" data-value="none">无子分类</a>');
+        }
+        changeSubject("Mathematics_Algebra_Other")
+      }
+    });
+        let currentPage = 1;
+        let totalPages = 4;
+        // let correctColor = "#f5f5f5";
+        let correctColor = "#B4F3BC";
+        let incorrectColor = "#FFD5D5";
+        let typingInterval; // outside of the function, to store the interval ID
+        let isTyping = false;
+        changeSubject("source_team_selection_test");
+
+        function changeSubject(subject) {
+          console.log(subject)
+          curSubject = subject;
+          if(curSubject.includes("source_")){
+            data = SOURCE_DATA[curSubject];
+          }
+          else if(curSubject.includes("difficulty")){
+            data =  DIFFICULTY_DATA[curSubject]
+          }
+          else{
+            data = DOMAIN_DATA[curSubject]
+          }
+          console.log(data)
+          totalPages = data.length;
+          $("#totalPages").text(totalPages);
+          currentPage = 1;
+          $("#currentPage").text(currentPage);
+          updateData(currentPage);
+          updateButtonStatus();
+        }
+
+        function updateData(idx) {
+          idx = idx - 1;
+          $("#problemSource").text(data[idx]["source"]);
+          $("#question").text(data[idx]["problem"]);
+          console.log(data[idx]["problem"])
+          // $(".fade-in").removeClass("visible");
+          var reference_answer = data[idx]["solution"]
+          // 将公式包装在MathJax可以识别的$...$中，以触发公式渲染
+          // reference_answer = "$" + reference_answer + "$";
+          console.log(reference_answer)
+          // 将公式作为文本插入，避免HTML解析
+          $("#referenceAnswer").text(reference_answer);
+
+          // 延迟渲染，确保MathJax在DOM更新后渲染公式
+          MathJax.typesetPromise([document.getElementById('referenceAnswer')]);
+          // replace \n with <br> for model answer
+          //model_answer = data[idx]["model_answer"].replace(/\n/g, "<br>");
+          //$("#modelAnswer").html(model_answer);
+          //if (data[idx]["result"] == "Correct") {
+          //  $("#result").text("✅ " + data[idx]["result"]);
+          //  $("#modelAnswer").css("background-color", correctColor);
+          //} else {
+          //  $("#result").text("❌ " + data[idx]["result"]);
+          //  $("#modelAnswer").css("background-color", incorrectColor);
+          //}
+          $(".fade-in").addClass("visible");
+          MathJax.typesetPromise();
+        }
+
+        function updateButtonStatus() {
+          // Disable the left button if at the beginning
+          if (currentPage <= 1) {
+            $("#leftButton").prop("disabled", true);
+          } else {
+            $("#leftButton").prop("disabled", false);
+          }
+
+          // Disable the right button if at the end
+          if (currentPage >= totalPages) {
+            $("#rightButton").prop("disabled", true);
+          } else {
+            $("#rightButton").prop("disabled", false);
+          }
+        }
+
+        // Initial button status update
+        updateButtonStatus();
+
+        $("#leftButton").click(function () {
+          if (currentPage > 1) {
+            currentPage--;
+            $("#currentPage").text(currentPage);
+            updateData(currentPage);
+          }
+          updateButtonStatus();
+        });
+
+        $("#rightButton").click(function () {
+          if (currentPage < totalPages) {
+            currentPage++;
+            $("#currentPage").text(currentPage);
+            updateData(currentPage);
+          }
+          updateButtonStatus();
+        });
+
+        $(document).keydown(function (e) {
+          switch (e.which) {
+            case 37: // left arrow key
+              if (currentPage > 1) {
+                currentPage--;
+                $("#currentPage").text(currentPage);
+                updateData(currentPage);
+              }
+              updateButtonStatus();
+              break;
+
+            case 39: // right arrow key
+              if (currentPage < totalPages) {
+                currentPage++;
+                $("#currentPage").text(currentPage);
+                updateData(currentPage);
+              }
+              updateButtonStatus();
+              break;
+
+            default:
+              return; // exit this handler for other keys
+          }
+          e.preventDefault(); // prevent the default action (scroll / move caret)
+        });
+
+        $(".buttons button").click(function () {
+          // Revert all buttons to .btn-light class
+          $(".buttons button").removeClass("btn-primary").addClass("btn-light");
+
+          // Set the clicked button to .btn-primary class
+          $(this).removeClass("btn-light").addClass("btn-primary");
+
+          // get the "data" attribute of this
+          let subject = $(this).attr("data");
+          console.log(subject);
+
+          changeSubject(subject);
+        });
+      });
+    </script>
+    </section>
+  </body>
+</html>

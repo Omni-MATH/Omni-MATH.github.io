@@ -1,0 +1,221 @@
+body {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.btn-row {
+  font-family: kefa;
+  display: flex; /* Use flexbox for rows */
+  justify-content: center; /* Center align buttons */
+  flex-wrap: wrap; /* Allow wrapping to the next line */
+  margin: 10px 0; /* Adjusted space between rows */
+  width: 100%; /* Ensure row takes full width */
+}
+
+.btn-container {
+  font-family: kefa;
+  display: flex; /* Use flexbox for main container */
+  flex-direction: column; /* Stack the rows */
+  align-items: center; /* Center align the rows */
+}
+
+.row-title {
+  font-size: 16px; /* Smaller font size for the row title */
+  font-weight: bold; /* Bold font */
+  margin-bottom: 5px; /* Space beneath titles */
+  text-align: center; /* Center align text */
+  font-family: 'Kefa', sans-serif; /* Set the font to Kefa */
+  width: 100%; /* Make it take full width for alignment */
+  color: #020202
+}
+
+.btn-custom {
+  background-color: #ee7a82; /* Solid button color */
+  color: black; /* Button text color */
+  border: none; /* No border */
+  padding: 8px 12px; /* Adjusted padding for smaller buttons */
+  border-radius: 5px; /* Slightly smaller rounded corners */
+  font-size: 16px; /* Font size remains the same */
+  margin: 5px; /* Margin between buttons */
+  transition: background 0.3s, transform 0.2s; /* Transition */
+  min-width: 120px; /* Optional: Minimum width for uniformity */
+  font-family: 'Kefa', sans-serif; /* Set the font to Kefa */
+}
+
+.btn-custom.t0 {
+  background-color: #b9ccf6; /* T0 color */
+}
+
+.btn-custom.t1 {
+  background-color: #9fbfef; /* T1 color */
+}
+
+.btn-custom.t2 {
+  background-color: #7aabde; /* T2 color */
+}
+
+.btn-custom.t3 {
+  background-color: #5495cc; /* T3 color */
+}
+
+.btn-custom.t4 {
+  background-color: #3279b9; /* T4 color */
+}
+
+.btn-custom:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Light effect on hover */
+  transform: scale(1.05); /* Slightly enlarge button */
+  cursor: pointer; /* Hand cursor on hover */
+}
+
+.footer .icon-link {
+    font-size: 25px;
+    color: #000;
+}
+
+.link-block a {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.dnerf {
+  font-variant: small-caps;
+}
+
+
+.teaser .hero-body {
+  padding-top: 0;
+  padding-bottom: 3rem;
+}
+
+.teaser {
+  font-family: 'Google Sans', sans-serif;
+}
+
+
+.publication-title {
+}
+
+.publication-banner {
+  max-height: parent;
+
+}
+
+.publication-banner video {
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+  object-fit: fit;
+}
+
+.publication-header .hero-body {
+}
+
+.publication-title {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-authors {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-venue {
+    color: #555;
+    width: fit-content;
+    font-weight: bold;
+}
+
+.publication-awards {
+    color: #ff3860;
+    width: fit-content;
+    font-weight: bolder;
+}
+
+.publication-authors {
+}
+
+.publication-authors a {
+   color: hsl(204, 86%, 53%) !important;
+}
+
+.publication-authors a:hover {
+    text-decoration: underline;
+}
+
+.author-block {
+  display: inline-block;
+}
+
+.publication-banner img {
+}
+
+.publication-authors {
+  /*color: #4286f4;*/
+}
+
+.publication-video {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+
+    overflow: hidden;
+    border-radius: 10px !important;
+}
+
+.publication-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.publication-body img {
+}
+
+.results-carousel {
+  overflow: hidden;
+}
+
+.results-carousel .item {
+  margin: 5px;
+  overflow: hidden;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  padding: 0;
+  font-size: 0;
+}
+
+.results-carousel video {
+  margin: 0;
+}
+
+
+.interpolation-panel {
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+.interpolation-panel .interpolation-image {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.interpolation-video-column {
+}
+
+.interpolation-panel .slider {
+  margin: 0 !important;
+}
+
+.interpolation-panel .slider {
+  margin: 0 !important;
+}
+
+#interpolation-image-wrapper {
+  width: 100%;
+}
+#interpolation-image-wrapper img {
+  border-radius: 5px;
+}
