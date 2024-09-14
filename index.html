@@ -750,16 +750,27 @@ This newly proposed benchmark offers a valuable resource for researchers and dev
         <table class="table">
           <tr>
             <td class="left-col">
+              <b>DOMAIN</b>
+            </td>
+            <td id="domain">Mathematics -> Algebra -> Prealgebra -> Simple Equations</td>
+          </tr>
+          <tr>
+            <tr>
+              <td class="left-col">
+                <b>DIFFICULTY</b>
+              </td>
+              <td id="difficulty">2.5</td>
+            </tr>
+            <tr>
+            <td class="left-col">
               <b>PROBLEM SOURCE</b>
             </td>
-            <td id="problemSource">MATH Algebra Level 1</td>
+            <td id="problemSource">fermat</td>
           </tr>
           <tr>
             <td class="left-col"><b>QUESTION</b></td>
             <td id="question">
-              If a drip of water is equivalent to $\frac{1}{4}$ of a milliliter,
-              how many drips are in a liter of water? Note: 1 liter = 1000
-              milliliters.
+              
             </td>
           </tr>
           <!--
@@ -796,14 +807,18 @@ This newly proposed benchmark offers a valuable resource for researchers and dev
         -->
           <tr>
             <td class="left-col">
-              <b>REFERENCE ANSWER</b>
+              <b>SOLUTION</b>
             </td>
             <td id="referenceAnswer">
-              If a drip of water is equivalent to $\frac{1}{4}$ of a milliliter,
-              then $4$ drips of water must be equivalent to $1$ milliliter of
-              water. Since there are $1000$ milliliters in a liter, it follows
-              that there are $4 \times 1000 = \boxed{4000}$ drips in a liter of
-              water.
+              
+            </td>
+          </tr>
+          <tr></tr>
+            <td class="left-col">
+              <b>ANSWER</b>
+            </td>
+            <td id="Answer">
+              
             </td>
           </tr>
         </table>
@@ -1069,13 +1084,17 @@ This newly proposed benchmark offers a valuable resource for researchers and dev
 
         function updateData(idx) {
           idx = idx - 1;
+          $("#domain").text(data[idx]["domain"]);
+          $("#difficulty").text(data[idx]["difficulty"]);
           $("#problemSource").text(data[idx]["source"]);
           $("#question").text(data[idx]["problem"]);
           console.log(data[idx]["problem"])
           // $(".fade-in").removeClass("visible");
           var reference_answer = data[idx]["solution"]
+          var answer = data[idx]["answer"]
           // 将公式包装在MathJax可以识别的$...$中，以触发公式渲染
           // reference_answer = "$" + reference_answer + "$";
+          $("#Answer").text(answer);
           console.log(reference_answer)
           // 将公式作为文本插入，避免HTML解析
           $("#referenceAnswer").text(reference_answer);
