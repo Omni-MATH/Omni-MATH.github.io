@@ -809,7 +809,7 @@ This newly proposed benchmark offers a valuable resource for researchers and dev
             <td class="left-col">
               <b style="color: crimson;">Solution</b>
             </td>
-            <td id="referenceAnswer">
+            <td id="solution">
               
             </td>
           </tr>
@@ -817,7 +817,7 @@ This newly proposed benchmark offers a valuable resource for researchers and dev
             <td class="left-col">
               <b style="color: crimson;">Answer</b>
             </td>
-            <td id="Answer">
+            <td id="answer">
               
             </td>
           </tr>
@@ -1094,13 +1094,19 @@ This newly proposed benchmark offers a valuable resource for researchers and dev
           var answer = data[idx]["answer"]
           // 将公式包装在MathJax可以识别的$...$中，以触发公式渲染
           // reference_answer = "$" + reference_answer + "$";
-          $("#Answer").text(answer);
+          answer = "$" + answer + "$";
           console.log(reference_answer)
+          console.log("---------")
+          console.log(answer)
+          console.log("---------")
           // 将公式作为文本插入，避免HTML解析
-          $("#referenceAnswer").text(reference_answer);
-
+          $("#solution").text(reference_answer);
+          $("#answer").text(answer);
           // 延迟渲染，确保MathJax在DOM更新后渲染公式
-          MathJax.typesetPromise([document.getElementById('referenceAnswer')]);
+          MathJax.typesetPromise(document.getElementById('answer'));
+          MathJax.typesetPromise(document.getElementById('solution'));
+          
+          
           // replace \n with <br> for model answer
           //model_answer = data[idx]["model_answer"].replace(/\n/g, "<br>");
           //$("#modelAnswer").html(model_answer);
