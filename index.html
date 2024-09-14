@@ -349,25 +349,14 @@
                 <span>Datasets</span>
               </a>
             </span>
-
-            <span class="link-block"></span>
-              <a href="https://huggingface.co/KbsdJames/Omni-Judge" target="https://huggingface.co/KbsdJames/Omni-Judge"
-                  class="external-link button is-normal is-rounded is-white">
+            <span class="link-block">
+              <a href="https://huggingface.co/KbsdJames/Omni-Judge" class="external-link button is-normal is-rounded is-white">
                 <span class="icon">
                   <p style="font-size:18px;margin-right: 2rem;">🤖</p>
                 </span>
                 <span>OmniJudge</span>
               </a>
             </span>
-            <!-- Leaderboard Link. -->
-            <!-- <span class="link-block">
-              <a href="" class="external-link button is-normal is-rounded is-white">
-                <span class="icon">
-                  <p style="font-size:18px;margin-right: 2rem;">📊</p>
-                </span>
-                <span>Leaderboard</span>
-              </a>
-            </span> -->
           </div>
 
         </div>
@@ -386,8 +375,7 @@
       </div> -->
       <img src="25541724923794_.pic.jpg" class="img-fluid" alt="描述性文字">
       <h2 class="custom-title">Introduction of Omni-MATH</h2>
-      <p class="custom-paragraph">Recent advancements in AI, particularly in large language models (LLMs), have led to significant breakthroughs in mathematical reasoning capabilities. However, existing benchmarks ilke GSM8K or MATH are now being solved with high accuracy (e.g., 84.0% on MATH dataset), indicating their inadequacy for truly challenging these models.
-        To mitigate this limitation, we propose a comprehensive and challenging benchmark specifically designed to assess LLMs' mathematical reasoning at the Olympiad level. Unlike existing Olympiad-related benchmarks, our dataset focuses exclusively on mathematics and comprises a vast collection of 4480 competition-level problems. These problems are meticulously categorized into 33 (and potentially more) sub-domains and span across 10 distinct difficulty levels, enabling a nuanced analysis of model performance across various mathematical disciplines and levels of complexity.
+      <p class="custom-paragraph">Recent advancements in AI, particularly in large language models (LLMs), have led to significant breakthroughs in mathematical reasoning capabilities. However, existing benchmarks like GSM8K or MATH are now being solved with high accuracy (e.g., OpenAI o1 achieves 94.8% on MATH dataset), indicating their inadequacy for truly challenging these models. To mitigate this limitation, we propose a comprehensive and challenging benchmark specifically designed to assess LLMs' mathematical reasoning at the Olympiad level. Unlike existing Olympiad-related benchmarks, our dataset focuses exclusively on mathematics and comprises a vast collection of 4428 competition-level problems. These problems are meticulously categorized into 33 (and potentially more) sub-domains and span across 10 distinct difficulty levels, enabling a nuanced analysis of model performance across various mathematical disciplines and levels of complexity.
         <br><br><b>Difficulty</b>: We conducted an extensive survey of mathematics competitions worldwide, categorizing them into five tiers based on their prominence, scale, and problem difficulty: Introductory, Transitional, Intermediate, National/International Difficult, and Famous Worldwide. To ensure accurate difficulty assessment, we rigorously adhered to the AoPS website's difficulty levels for problems listed there. For problems not on their list, we employed GPT-4o and few-shot prompting to give the difficulty tag.
         <br><br><b>Domain</b>: We referenced established mathematics competition resources to construct a hierarchical classification tree for mathematical domains. Each problem within our dataset is assigned a specific domain classification path, reflecting the specific area of mathematics it tests.
         <br><br><b>Data Source</b>: We collected problem statements and solutions from various international competitions and converted them into LaTeX format. For competitions lacking readily available solutions, we carefully selected problems from the AoPS website with high community recognition and reliable answers. All problems in our dataset include not only the final answer but also a detailed solution.
@@ -468,7 +456,7 @@ This newly proposed benchmark offers a valuable resource for researchers and dev
           <td><small style="font-weight: bold;">GPT-4o</small></td>
           <!-- <td class="fixed-width"><a href="https://arxiv.org/abs/2309.16609">Qwen2-72B-Instruct</a><br><i>Qwen Team, Alibaba Group</i></td>
           <td class="fixed-width"> <a href="https://arxiv.org/abs/2406.18629">Step-DPO</a> </td> -->
-          <td>2024/6/12</td>
+          <td>2024/5/13</td>
           <td>30.49%</td>
           <td>36.12%</td>
           <td>39.77%</td>
